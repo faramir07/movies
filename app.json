@@ -7,9 +7,12 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/movie-logos_white.png",
+      "imageResizeMode": "cover",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1F1C2C",
+      "width": 200,
+      "height": 200
     },
     "assetBundlePatterns": [
       "**/*"
