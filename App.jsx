@@ -1,41 +1,37 @@
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet, Text, View } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home } from "./src/components/Home/indext";
-import IconF from "react-native-vector-icons/Foundation";
+import { StyleSheet } from "react-native";
+import { Provider } from "react-redux";
+import { createStackNavigator } from "@react-navigation/stack";
+import store from "./src/Redux/store";
+import { TabScreen } from "./src/components/index.jsx";
+import { DetailMovie } from "./src/components/DatailMovie/index.jsx";
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+export const API_KEY = "062d754adf75dcb0d56b41ea5caf3519";
+export const BASE_URL_API = "https://api.themoviedb.org/3";
+export const BASE_URL_IMG = "https://image.tmdb.org/t/p/w500";
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator  initialRouteName="Home"
-      screenOptions={{
-        tabBarActiveTintColor: "#fff",
-        tabBarInactiveTintColor: "#1F1C2C",
-        tabBarShowLabel: false,
-        tabBarStyle: styles.tabBarStyle,
-      }}>
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            headerShown: false,
-            tabBarLabel: ".",
-            tabBarIcon: ({ color, focused }) => (
-              <IconF
-                name="home"
-                size={focused ? 20 + 10 : 20}
-                color={color}
-                style={styles.icon}
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-      <StatusBar style="auto" />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="TabScreen">
+          <Stack.Screen
+            name="TabScreen"
+            component={TabScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="DetailMovie"
+            component={DetailMovie}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+        <StatusBar style="auto" />
+      </NavigationContainer>
+    </Provider>
   );
 }
 
@@ -46,11 +42,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   icon: {
-    margin: 0
+    margin: 0,
+    zIndex: 1,
   },
   tabBarStyle: {
-    backgroundColor: "#C4C4C4",
+    flex: 1,
+    width: "90%",
+    marginLeft: 20,
+    backgroundColor: "rgba(196, 196, 196, 0.6)",
+    overflow: "hidden",
+    position: "absolute",
     alignItems: "center",
     justifyContent: "center",
-  }
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    padding: 0,
+    margin: 0,
+  },
 });
